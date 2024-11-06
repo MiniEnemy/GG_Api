@@ -7,7 +7,7 @@ const app = express();
 
 const port = process.env.PORT || 5000;
 
-const products_routes = require("../API/routes/product");
+const products_routes = require("./routes/product");
 
 app.get("/", (req, res) => {  // Added 'req' and 'res' parameters
     res.send("The server is Online");
