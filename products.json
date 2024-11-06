@@ -1,0 +1,79 @@
+[
+    {
+      "name": "Logitech MX Master 3 Wireless Mouse",
+      "price": 8499.15,
+      "featured": true,
+      "rating": 4.8,
+      "createdAt": "2023-08-15",
+      "company": "Logitech",
+      "category": "mouse",
+      "stock": 25,
+      "image": "https://resource.logitech.com/w_692,c_lpad,ar_4:3,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/mx-master-3s/gallery/mx-master-3s-mouse-top-view-black.png?v=1"
+    },
+    {
+      "name": "Sony WH-1000XM4 Wireless Noise Canceling Headphones",
+      "price": 29688,
+      "featured": true,
+      "rating": 4.7,
+      "createdAt": "2021-06-01",
+      "company": "Sony",
+      "category": "headphones",
+      "stock": 18,
+      "image": "https://m.media-amazon.com/images/I/61ThAl3GgUL._AC_SX466_.jpg"
+    },
+    {
+      "name": "Logitech G913 TKL Wireless Mechanical Gaming Keyboard",
+      "price": 16999.15,
+      "featured": true,
+      "rating": 4.6,
+      "createdAt": "2022-11-20",
+      "company": "Logitech",
+      "category": "keyboards",
+      "stock": 32,
+      "image": "https://resource.logitechg.com/w_692,c_lpad,ar_4:3,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/gaming/en/products/g915-tkl/g915-tkl-gallery/us-g915-tkl-carbon-gallery-topdown.png?v=1"
+    },
+    {
+      "name": "Razer DeathAdder V2 Pro Wireless Gaming Mouse",
+      "price": 11049.15,
+      "featured": true,
+      "rating": 4.7,
+      "createdAt": "2021-03-01",
+      "company": "Razer",
+      "category": "mouse",
+      "stock": 15,
+      "image": "https://m.media-amazon.com/images/I/71DrKCQnC8L._AC_SX466_.jpg"
+    },
+    {
+      "name": "Bose QuietComfort 35 II Wireless Noise Cancelling Headphones",
+      "price": 25415,
+      "featured": true,
+      "rating": 4.6,
+      "createdAt": "2019-09-10",
+      "company": "Bose",
+      "category": "headphones",
+      "stock": 22,
+      "image": "https://m.media-amazon.com/images/I/61PzLRRxRbL._AC_SX466_.jpg"
+    },
+    {
+      "name": "Corsair K70 RGB MK.2 Mechanical Gaming Keyboard",
+      "price": 13599.15,
+      "featured": true,
+      "rating": 4.8,
+      "createdAt": "2022-07-15",
+      "company": "Corsair",
+      "category": "keyboards",
+      "stock": 28,
+      "image": "https://assets.corsair.com/image/upload/c_pad,q_85,h_1100,w_1100,f_auto/products/Gaming-Keyboards/CH-9109012-NA/Gallery/K70_RGB_MK2_02.webp"
+    },
+    {
+      "name": "Logitech MX Anywhere 3 Wireless Mouse",
+      "price": 6799.15,
+      "featured": true,
+      "rating": 4.5,
+      "createdAt": "2022-02-05",
+      "company": "Logitech",
+      "category": "mouse",
+      "stock": 35,
+      "image": "https://m.media-amazon.com/images/I/61qgywgsYIL._SX679_.jpg"
+    }
+]
