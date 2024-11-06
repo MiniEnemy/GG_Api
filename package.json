@@ -6,11 +6,17 @@
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
-  "keywords": ["api", "express", "mongodb", "nodejs"],
+  "keywords": [
+    "api",
+    "express",
+    "mongodb",
+    "nodejs"
+  ],
   "author": "Your Name",
   "license": "ISC",
   "description": "A Node.js API for handling product data and connecting to MongoDB.",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "mongodb": "^6.10.0",
