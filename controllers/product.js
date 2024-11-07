@@ -1,38 +1,46 @@
-const product = require("../model/product");
+const Product = require("../models/Product");
 
-const getALLProducts = async (req, res) => {
-    // Get page and limit from the query parameters
-    let page = Number(req.query.page) || 1;  // Default to page 1 if not provided
-    let limit = Number(req.query.limit) || 7;  // Default to 3 items per page if not provided
-    let skip = (page - 1) * limit;  // Calculate the number of items to skip based on page
-    
-    const filterQuery = { ...req.query };
-    delete filterQuery.page;
-    delete filterQuery.limit;
+const getProducts = async (req, res) => {
+  try {
+    // Get pagination parameters from the request
+    let page = Math.max(1, Number(req.query.page)) || 1;
+    let limit = Math.min(50, Math.max(10, Number(req.query.limit))) || 20;
+    let skip = (page - 1) * limit;
 
-    try {
-        // Query the products with pagination
-        const MyProducts = await product.find(filterQuery)  // Pass only the filter query
-                                    .skip(skip)  // Skip items based on page
-                                    .limit(limit);  // Limit the number of items per page
+    // Extract filter and sort parameters from the request
+    const filters = { ...req.query };
+    delete filters.page;
+    delete filters.limit;
+    delete filters.sort;
 
-        // Get the total number of products (for pagination info)
-        const nbHits = await product.countDocuments(filterQuery);  // Count total matching items in the DB
+    const sortBy = req.query.sort || "createdAt";
+    const sortOrder = req.query.order === "asc" ? 1 : -1;
 
-        // Return the paginated data and the total count
-        res.status(200).json({ MyProducts, nbHits });
-    } catch (error) {
-        res.status(500).json({ message: "Error fetching products", error });
-    }
+    // Fetch products with filters, sorting, skip, and limit
+    const products = await Product.find(filters)
+      .sort({ [sortBy]: sortOrder })
+      .skip(skip)
+      .limit(limit);
+
+    // Count total documents matching the filters
+    const totalProducts = await Product.countDocuments(filters);
+    const totalPages = Math.ceil(totalProducts / limit);
+
+    res.json({
+      products,
+      pagination: {
+        currentPage: page,
+        totalPages,
+        totalProducts,
+        hasNextPage: page < totalPages,
+        hasPreviousPage: page > 1,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching products", error });
+  }
 };
 
-const getALLProductsTesting = async (req, res) => {
-    try {
-        const myData = await product.find(req.query);
-        res.status(200).json({ myData });
-    } catch (error) {
-        res.status(500).json({ message: "Error fetching products", error });
-    }
+module.exports = {
+  getProducts,
 };
-
-module.exports = { getALLProducts, getALLProductsTesting };
