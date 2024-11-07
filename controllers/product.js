@@ -1,46 +1,31 @@
-const Product = require("../models/Product");
+// controllers/product.js
+const product = require("../model/product");
 
-const getProducts = async (req, res) => {
-  try {
-    // Get pagination parameters from the request
-    let page = Math.max(1, Number(req.query.page)) || 1;
-    let limit = Math.min(50, Math.max(10, Number(req.query.limit))) || 20;
+const getALLProducts = async (req, res) => {
+    let page = Number(req.query.page) || 1;
+    let limit = Number(req.query.limit) || 7;
     let skip = (page - 1) * limit;
 
-    // Extract filter and sort parameters from the request
-    const filters = { ...req.query };
-    delete filters.page;
-    delete filters.limit;
-    delete filters.sort;
+    const filterQuery = { ...req.query };
+    delete filterQuery.page;
+    delete filterQuery.limit;
 
-    const sortBy = req.query.sort || "createdAt";
-    const sortOrder = req.query.order === "asc" ? 1 : -1;
-
-    // Fetch products with filters, sorting, skip, and limit
-    const products = await Product.find(filters)
-      .sort({ [sortBy]: sortOrder })
-      .skip(skip)
-      .limit(limit);
-
-    // Count total documents matching the filters
-    const totalProducts = await Product.countDocuments(filters);
-    const totalPages = Math.ceil(totalProducts / limit);
-
-    res.json({
-      products,
-      pagination: {
-        currentPage: page,
-        totalPages,
-        totalProducts,
-        hasNextPage: page < totalPages,
-        hasPreviousPage: page > 1,
-      },
-    });
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching products", error });
-  }
+    try {
+        const MyProducts = await product.find(filterQuery).skip(skip).limit(limit);
+        const nbHits = await product.countDocuments(filterQuery);
+        res.status(200).json({ MyProducts, nbHits });
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching products", error });
+    }
 };
 
-module.exports = {
-  getProducts,
+const getALLProductsTesting = async (req, res) => {
+    try {
+        const myData = await product.find(req.query);
+        res.status(200).json({ myData });
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching products", error });
+    }
 };
+
+module.exports = { getALLProducts, getALLProductsTesting };

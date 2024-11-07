@@ -1,10 +1,10 @@
+// routes/product.js
 const express = require('express');
 const router = express.Router();
+const productController = require('../controllers/product'); // Import the controller
 
-const {getALLProducts,getALLProductsTesting} = require("../controllers/product");
+// Define routes
+router.get('/', productController.getALLProducts); // GET all products
+router.get('/testing', productController.getALLProductsTesting); // Additional route for testing
 
-router.route("/").get(getALLProducts);
-router.route("/testing").get(getALLProductsTesting);
-
-
-module.exports = router;
+module.exports = router; // Export the router
