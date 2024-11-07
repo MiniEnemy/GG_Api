@@ -34,7 +34,7 @@ const start = async () => {
             console.log(`${port} yes it's Live`);
         });
     } catch (error) {
-        console.log("Error:", error);  // Optional: Log the error itself for more details
+        console.log("Error:", error);  
     }
 };
 
