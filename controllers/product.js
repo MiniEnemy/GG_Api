@@ -1,9 +1,14 @@
-// controllers/product.js
 const product = require("../model/product");
 
 const getALLProducts = async (req, res) => {
-    let page = Number(req.query.page) || 1;
-    let limit = Number(req.query.limit) || 10;
+    let page = Number(req.query.page) || 1;  // Default to page 1 if not provided
+    let limit = Number(req.query.limit) || 10;  // Default to 10 items per page if not provided
+
+    // Ensure limit doesn't exceed 10
+    if (limit > 10) {
+        limit = 10;
+    }
+
     let skip = (page - 1) * limit;
 
     const filterQuery = { ...req.query };
