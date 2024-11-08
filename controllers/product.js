@@ -1,36 +1,41 @@
-const product = require("../model/product");
+const Product = require('../model/product');
 
+// Get all products
 const getALLProducts = async (req, res) => {
-    let page = Number(req.query.page) || 1;  // Default to page 1 if not provided
-    let limit = Number(req.query.limit) || 10;  // Default to 10 items per page if not provided
-
-    // Ensure limit doesn't exceed 10
-    if (limit > 10) {
-        limit = 10;
-    }
-
-    let skip = (page - 1) * limit;
-
-    const filterQuery = { ...req.query };
-    delete filterQuery.page;
-    delete filterQuery.limit;
-
-    try {
-        const MyProducts = await product.find(filterQuery).skip(skip).limit(limit);
-        const nbHits = await product.countDocuments(filterQuery);
-        res.status(200).json({ MyProducts, nbHits });
-    } catch (error) {
-        res.status(500).json({ message: "Error fetching products", error });
-    }
+  try {
+    const products = await Product.find();
+    
+    // Map each product to replace `_id` with `id`
+    const formattedProducts = products.map((product) => ({
+      ...product.toObject(),  // Convert to plain object
+      id: product._id,        // Add `id` as a replacement for `_id`
+      _id: undefined,         // Remove `_id` field
+    }));
+    
+    res.json({ MyProducts: formattedProducts });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching products' });
+  }
 };
 
-const getALLProductsTesting = async (req, res) => {
-    try {
-        const myData = await product.find(req.query);
-        res.status(200).json({ myData });
-    } catch (error) {
-        res.status(500).json({ message: "Error fetching products", error });
-    }
+// Get a single product by ID
+const getProductById = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) return res.status(404).json({ message: 'Product not found' });
+    const formattedProduct = {
+      ...product.toObject(),
+      id: product._id,
+      _id: undefined,
+    };
+
+    res.json(formattedProduct);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching product by ID' });
+  }
 };
 
-module.exports = { getALLProducts, getALLProductsTesting };
+module.exports = {
+  getALLProducts,
+  getProductById,
+};

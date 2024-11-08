@@ -1,10 +1,11 @@
-// routes/product.js
 const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/product'); // Import the controller
 
-// Define routes
-router.get('/', productController.getALLProducts); // GET all products
-router.get('/testing', productController.getALLProductsTesting); // Additional route for testing
+// Route to get all products
+router.get('/', productController.getALLProducts);
 
-module.exports = router; // Export the router
+// Route to get a product by its MongoDB ObjectId
+router.get('/:id', productController.getProductById);
+
+module.exports = router;
